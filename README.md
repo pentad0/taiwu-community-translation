@@ -20,3 +20,7 @@ NOTE: Event files are the only game files that get changed/replaced by this mod.
 # Development Note
 Builds are compiled against a publicized .DLL due to some problematic class nesting. 
 https://github.com/CabbageCrow/AssemblyPublicizer
+
+1. Drag and drop "The Scroll Of Taiwu/The Scroll of Taiwu_Data/Managed/Assembly-CSharp.dll" onto "AssemblyPublicizer.exe". This will create a new folder called "/publicized_assemblies/".
+2. Move this folder to "taiwu-community-translation/src/bin/Debug/net481".
+3. Replace the path of "Assembly-CSharp_publicized.dll" in "TaiwuCommunityTranslation.csproj" to the one above.
