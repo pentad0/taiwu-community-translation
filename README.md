@@ -23,24 +23,34 @@ https://github.com/CabbageCrow/AssemblyPublicizer
 
 # taiwu-community-translation-jp
 日本語表示用に下記を追加した。
-1.設定にlanguageを追加。
-MODがThe Scroll Of Taiwu\Languages\"languageの値"のフォルダからテキストを読むようにした。
 
-2.文字フォント縮小処理の回避分岐を追加。
-日本語表示の場合は不要と思われる文字フォント縮小処理はlanguage=enの時だけにしか動かないようにした。
-ただしenableAutoSizingで処理が切り替わる部分は修正しなかった。
+<ol>
+  <li>
+    設定にlanguageを追加。
+    
+    MODがThe Scroll Of Taiwu\Languages\"languageの値"のフォルダからテキストを読むようにした。
+  </li>
+  <li>
+    文字フォント縮小処理の回避分岐を追加。
+    
+    日本語表示の場合は不要と思われる文字フォント縮小処理はlanguage=enの時だけにしか動かないようにした。
+    
+    ただしenableAutoSizingで処理が切り替わる部分は修正しなかった。
+  </li>
+</ol>
 
 これらの修正部分はlanguage=enにすると従来通りの動作をするようにしている。
 
-# 注意点
-このゲームはフォントが日本語を表示できるようになっていないので日本語テキストを読み込ませる場合はこのMODを入れた上で
-The Scroll Of Taiwu\The Scroll of Taiwu_Data\GameResources\fonts.uabのフォントを差し替える必要がある。
 
-またこのMODはThe Scroll Of Taiwu\The Scroll of Taiwu_Data\GameResources\views.uabに格納しているボタンなどのテキストや、
-The Scroll Of Taiwu\The Scroll of Taiwu_Data\Managed\Assembly-CSharp.dllのソースに直接書かれているテキストフィールドのデフォルト値などには
-対応していないので、完全に翻訳しようとすると別の手段が必要になる。
+# 注意点
+
+このゲームはフォントが日本語を表示できるようになっていないので日本語テキストを読み込ませる場合はこのMODを入れた上でThe Scroll Of Taiwu\The Scroll of Taiwu_Data\GameResources\fonts.uabのフォントを差し替える必要がある。
+
+またこのMODはThe Scroll Of Taiwu\The Scroll of Taiwu_Data\GameResources\views.uabに格納しているボタンなどのテキストや、The Scroll Of Taiwu\The Scroll of Taiwu_Data\Managed\Assembly-CSharp.dllのソースに直接書かれているテキストフィールドのデフォルト値などには対応していないので、完全に翻訳しようとすると別の手段が必要になる。
+
 
 # AssemblyPublicizerの使い方
+
 1. Drag and drop "The Scroll Of Taiwu/The Scroll of Taiwu_Data/Managed/Assembly-CSharp.dll" onto "AssemblyPublicizer.exe". This will create a new folder called "/publicized_assemblies/".
 2. Move this folder to "taiwu-community-translation/src/bin/Debug/net481".
 3. Replace the path of "Assembly-CSharp_publicized.dll" in "TaiwuCommunityTranslation.csproj" to the one above.
