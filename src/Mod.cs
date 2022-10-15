@@ -20,10 +20,12 @@ namespace TaiwuCommunityTranslation
     [PluginConfig("Taiwu Community Translation", "Taiwu Mods Community", "0.1.0")]
     public class Mod : TaiwuRemakeHarmonyPlugin
     {
-        public static readonly string prefix = @"Languages\en";
+        public static readonly string preprefix = @"Languages\";
+        public static string prefix = @"Languages\en";
         public static bool enableAutoSizing = true;
         public static int minFontSize = 16;
         public static int maxFontSize = 24;
+        public static string language = "en";
 
         string filename = "EngModLogs.txt";
         public override void Initialize()
@@ -31,23 +33,23 @@ namespace TaiwuCommunityTranslation
             Application.logMessageReceived += Log;
             base.Initialize();
             File.WriteAllText(filename, "Mod loaded \n");
-            
+
+            this.OnModSettingUpdate();
 
             Debug.Log("!!!!! Taiwu Community Translation loaded");
             if (!Directory.Exists(prefix)) return;
             TranslateEvents();
             TranslatorAssistant.AddToGame();
-
-
-            this.OnModSettingUpdate();
         }
 
         public override void OnModSettingUpdate()
         {
-            base.OnModSettingUpdate();
             ModManager.GetSetting(ModIdStr, "enableAutoSizing", ref enableAutoSizing);
             ModManager.GetSetting(ModIdStr, "fontMin", ref minFontSize);
             ModManager.GetSetting(ModIdStr, "fontMax", ref maxFontSize);
+            ModManager.GetSetting(ModIdStr, "language", ref language);
+
+            prefix = preprefix + language;
         }
 
 
@@ -123,7 +125,16 @@ namespace TaiwuCommunityTranslation
             }
 
         }
-        
+        public static bool isSmallCharacterLanguage()
+        {
+            switch (language)
+            {
+                case "en":
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 
     public class TranslatorAssistant : MonoBehaviour
@@ -280,6 +291,7 @@ namespace TaiwuCommunityTranslation
 
         public static void ResizeAndRealignText(TextMeshProUGUI t, Vector2 size, bool includeParent, bool repositionParent = false)
         {
+            if (!Mod.isSmallCharacterLanguage()) return;
             if (includeParent)
             {
                 RectTransform parentTransform = (t.rectTransform.parent as RectTransform);
@@ -311,6 +323,7 @@ namespace TaiwuCommunityTranslation
         static void Postfix()
         {
             Debug.Log("Main Menu harmony patch");
+            if (!Mod.isSmallCharacterLanguage()) return;
             GameObject bbl = GameObject.Find("/Camera_UIRoot/Canvas/LayerMain/UI_MainMenu/FrontElements/BottomBtnLayout");
             RectTransform[] bblChildrenTransforms = bbl.GetComponentsInChildren<RectTransform>();
 
@@ -332,6 +345,7 @@ namespace TaiwuCommunityTranslation
         static void Postfix()
         {
             Debug.Log("!!!Harmony!!! - UI_NewGame Patched");
+            if (!Mod.isSmallCharacterLanguage()) return;
             UI_NewGame newGameUi = TranslatorAssistant.Instance.rootUi
                 .GetComponentInChildren<UI_NewGame>();
 
@@ -365,6 +379,7 @@ namespace TaiwuCommunityTranslation
         static void Postfix()
         {
             Debug.Log("Overwriting config settings");
+            if (!Mod.isSmallCharacterLanguage()) return;
             GlobalConfig.Instance.NameLengthConfig_CN = new byte[2] { 6, 6 };
         }
     }
@@ -407,6 +422,7 @@ namespace TaiwuCommunityTranslation
     {
         static bool Prefix(UI_GetItem __instance)
         {
+            if (!Mod.isSmallCharacterLanguage()) return false;
             if (__instance._titleList.Count <= 0 || __instance._title.IsNullOrEmpty())
                 return false;
             if (__instance._title.Equals(LocalStringManager.Get((ushort)1124)) || __instance._title.Equals(LocalStringManager.Get((ushort)2280)) || __instance._title.Equals(LocalStringManager.Get((ushort)2281)))

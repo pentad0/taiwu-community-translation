@@ -26,6 +26,12 @@ return {
 			DefaultValue=24,
 			MinValue=16,
 			MaxValue=32
+		},
+        {
+			Key="language",
+			DisplayName="language",
+			SettingType="InputField",
+			DefaultValue="en"
 		}
     }
 }
